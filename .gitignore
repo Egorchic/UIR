@@ -1,0 +1,23 @@
+# IDE / env
+.idea/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# data / artifacts
+*.xlsx
+*.csv
+*.npy
+*.npz
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+api.py
+models/*
+Dockerfile
+requirements.txt
+.dockerignore

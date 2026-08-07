@@ -1,0 +1,66 @@
+{
+  "run_name": "cbow_dim200_subword_balanced_C1",
+  "data": "dataset_clean.csv",
+  "fasttext_model_path": "models\\ft_cbow_dim200_minn2_maxn5.bin",
+  "test_size": 0.2,
+  "random_state": 42,
+  "class_weight": "balanced",
+  "C": 1.0,
+  "max_iter": 3000,
+  "use_scaler": true,
+  "n_samples": 23682,
+  "n_train": 18945,
+  "n_test": 4737,
+  "embedding_time_sec": 4.8748,
+  "train_time_sec": 1.6514,
+  "predict_time_sec": 0.014,
+  "accuracy": 0.947,
+  "macro_f1": 0.9159,
+  "weighted_f1": 0.9481,
+  "macro_precision": 0.8834,
+  "macro_recall": 0.9529,
+  "per_class_metrics": [
+    {
+      "class": "I",
+      "precision": 0.8619,
+      "recall": 0.9503,
+      "f1": 0.9039,
+      "support": 604
+    },
+    {
+      "class": "II",
+      "precision": 0.994,
+      "recall": 0.9442,
+      "f1": 0.9685,
+      "support": 3172
+    },
+    {
+      "class": "III",
+      "precision": 0.8214,
+      "recall": 0.9583,
+      "f1": 0.8846,
+      "support": 192
+    },
+    {
+      "class": "IV",
+      "precision": 0.892,
+      "recall": 0.95,
+      "f1": 0.9201,
+      "support": 400
+    },
+    {
+      "class": "V",
+      "precision": 0.8538,
+      "recall": 0.9427,
+      "f1": 0.896,
+      "support": 192
+    },
+    {
+      "class": "VI",
+      "precision": 0.8776,
+      "recall": 0.9718,
+      "f1": 0.9223,
+      "support": 177
+    }
+  ]
+}

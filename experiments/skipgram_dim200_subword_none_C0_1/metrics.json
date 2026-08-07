@@ -1,0 +1,66 @@
+{
+  "run_name": "skipgram_dim200_subword_none_C0_1",
+  "data": "dataset_clean.csv",
+  "fasttext_model_path": "models/ft_skipgram_dim200_minn2_maxn5.bin",
+  "test_size": 0.2,
+  "random_state": 42,
+  "class_weight": "none",
+  "C": 0.1,
+  "max_iter": 3000,
+  "use_scaler": true,
+  "n_samples": 23682,
+  "n_train": 18945,
+  "n_test": 4737,
+  "embedding_time_sec": 5.0753,
+  "train_time_sec": 0.7838,
+  "predict_time_sec": 0.008,
+  "accuracy": 0.9582,
+  "macro_f1": 0.9279,
+  "weighted_f1": 0.9581,
+  "macro_precision": 0.93,
+  "macro_recall": 0.926,
+  "per_class_metrics": [
+    {
+      "class": "I",
+      "precision": 0.9291,
+      "recall": 0.9106,
+      "f1": 0.9197,
+      "support": 604
+    },
+    {
+      "class": "II",
+      "precision": 0.9752,
+      "recall": 0.9792,
+      "f1": 0.9772,
+      "support": 3172
+    },
+    {
+      "class": "III",
+      "precision": 0.918,
+      "recall": 0.875,
+      "f1": 0.896,
+      "support": 192
+    },
+    {
+      "class": "IV",
+      "precision": 0.9231,
+      "recall": 0.93,
+      "f1": 0.9265,
+      "support": 400
+    },
+    {
+      "class": "V",
+      "precision": 0.9062,
+      "recall": 0.9062,
+      "f1": 0.9062,
+      "support": 192
+    },
+    {
+      "class": "VI",
+      "precision": 0.9286,
+      "recall": 0.9548,
+      "f1": 0.9415,
+      "support": 177
+    }
+  ]
+}
