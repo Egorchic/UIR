@@ -18,6 +18,7 @@ Thumbs.db
 
 api.py
 models/*
+!models/.gitkeep
 Dockerfile
 requirements.txt
 .dockerignore
