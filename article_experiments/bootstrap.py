@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from itertools import combinations
 
 from .data import PROJECT_ROOT
 
@@ -27,6 +28,8 @@ MODEL_FILES = {
     "tfidf": "tfidf_results.csv",
     "cc_fasttext": "cc_fasttext_results.csv",
     "bethesda_fasttext": "bethesda_fasttext_results.csv",
+    "rubiobert": "rubiobert_results.csv",
+    "rubert": "rubert_results.csv",
     "native_fasttext": "native_fasttext_results.csv",
 }
 
@@ -36,32 +39,22 @@ MODEL_FILES = {
 # delta = model_a - model_b
 #
 # Поэтому положительный CI означает преимущество model_a.
-PAIRWISE_COMPARISONS = [
-    (
-        "tfidf",
-        "cc_fasttext",
-    ),
-    (
-        "tfidf",
-        "bethesda_fasttext",
-    ),
-    (
-        "tfidf",
-        "native_fasttext",
-    ),
-    (
-        "cc_fasttext",
-        "bethesda_fasttext",
-    ),
-    (
-        "cc_fasttext",
-        "native_fasttext",
-    ),
-    (
-        "bethesda_fasttext",
-        "native_fasttext",
-    ),
+MODEL_ORDER = [
+    "tfidf",
+    "cc_fasttext",
+    "bethesda_fasttext",
+    "rubiobert",
+    "rubert",
+    "native_fasttext",
 ]
+
+
+PAIRWISE_COMPARISONS = list(
+    combinations(
+        MODEL_ORDER,
+        2,
+    )
+)
 
 
 def load_model_results(

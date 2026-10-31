@@ -5,6 +5,6 @@
   "bootstrap_unit": "outer_split",
   "paired": true,
   "confidence_interval": "percentile_95",
-  "n_models": 4,
-  "n_pairwise_comparisons": 6
+  "n_models": 6,
+  "n_pairwise_comparisons": 15
 }

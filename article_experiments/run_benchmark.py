@@ -29,6 +29,10 @@ from .representations.fasttext_native import (
 
 from .representations.tfidf import tune_tfidf
 
+from .representations.transformer import (
+    get_or_create_embeddings as get_or_create_transformer_embeddings,
+)
+
 
 # ============================================================
 # Пути
@@ -68,6 +72,23 @@ PRETRAINED_FASTTEXT_MODELS = {
     "bethesda_fasttext",
     "cc_fasttext",
 }
+
+TRANSFORMER_MODELS = {
+    "rubert": (
+        "DeepPavlov/rubert-base-cased"
+    ),
+
+    "rubiobert": (
+        "alexyalunin/RuBioBERT"
+    ),
+}
+
+
+DEFAULT_TRANSFORMER_CACHE_DIR = (
+    PROJECT_ROOT
+    / "article_results"
+    / "transformer_embeddings"
+)
 
 
 # ============================================================
@@ -401,6 +422,8 @@ def main():
             "bethesda_fasttext",
             "cc_fasttext",
             "native_fasttext",
+            "rubert",
+            "rubiobert",
         ],
         required=True,
     )
@@ -441,6 +464,35 @@ def main():
             "Необязательный явный путь к .bin. "
             "Если отсутствует, используется стандартный "
             "путь для выбранной pretrained fastText модели."
+        ),
+    )
+
+    parser.add_argument(
+        "--transformer-cache-dir",
+        type=Path,
+        default=DEFAULT_TRANSFORMER_CACHE_DIR,
+    )
+
+    parser.add_argument(
+        "--transformer-batch-size",
+        type=int,
+        default=16,
+    )
+
+    parser.add_argument(
+        "--transformer-max-length",
+        type=int,
+        default=256,
+    )
+
+    parser.add_argument(
+        "--transformer-device",
+        type=str,
+        default=None,
+        help=(
+            "Например cpu, cuda или cuda:0. "
+            "По умолчанию CUDA используется "
+            "автоматически, если доступна."
         ),
     )
 
@@ -565,6 +617,112 @@ def main():
         # а после векторизации больше не нужна.
         del fasttext_model
         gc.collect()
+
+    # ============================================================
+    # Frozen Transformer embeddings
+    # ============================================================
+
+    all_transformer_embeddings = None
+    transformer_metadata = None
+    transformer_model_id = None
+
+    if args.model in TRANSFORMER_MODELS:
+
+        if "input_clean" not in df.columns:
+            raise ValueError(
+                "Для transformer-эксперимента "
+                "в dataset_used.csv необходим "
+                "столбец input_clean."
+            )
+
+        transformer_texts = (
+            df[
+                "input_clean"
+            ]
+            .fillna("")
+            .astype(str)
+            .str.strip()
+        )
+
+        if (
+                transformer_texts
+                == ""
+        ).any():
+            raise ValueError(
+                "В input_clean обнаружены "
+                "пустые тексты."
+            )
+
+        transformer_model_id = (
+            TRANSFORMER_MODELS[
+                args.model
+            ]
+        )
+
+        print()
+        print(
+            "=" * 60
+        )
+
+        print(
+            f"Preparing frozen {args.model}"
+        )
+
+        print(
+            f"Model: {transformer_model_id}"
+        )
+
+        print(
+            "Input column: input_clean"
+        )
+
+        print(
+            "=" * 60
+        )
+
+        (
+            all_transformer_embeddings,
+            transformer_metadata,
+        ) = (
+            get_or_create_transformer_embeddings(
+                model_key=args.model,
+
+                model_id=(
+                    transformer_model_id
+                ),
+
+                object_ids=(
+                    df[
+                        "object_id"
+                    ].tolist()
+                ),
+
+                texts=(
+                    transformer_texts.tolist()
+                ),
+
+                cache_dir=(
+                    args.transformer_cache_dir
+                ),
+
+                batch_size=(
+                    args.transformer_batch_size
+                ),
+
+                max_length=(
+                    args.transformer_max_length
+                ),
+
+                device=(
+                    args.transformer_device
+                ),
+            )
+        )
+
+        print(
+            "Embeddings shape: "
+            f"{all_transformer_embeddings.shape}"
+        )
 
     # ========================================================
     # Какие split запускать
@@ -819,6 +977,148 @@ def main():
 
                     **(
                         fasttext_metadata
+                        or {}
+                    ),
+                },
+            }
+
+        # ====================================================
+        # Frozen Transformer:
+        # RuBERT или RuBioBERT
+        # ====================================================
+
+        elif (
+            args.model
+            in TRANSFORMER_MODELS
+        ):
+
+            if (
+                all_transformer_embeddings
+                is None
+            ):
+                raise RuntimeError(
+                    "Transformer embeddings "
+                    "не были рассчитаны."
+                )
+
+            train_indices = (
+                train.index.to_numpy(
+                    dtype=int
+                )
+            )
+
+            test_indices = (
+                test.index.to_numpy(
+                    dtype=int
+                )
+            )
+
+            x_train = (
+                all_transformer_embeddings[
+                    train_indices
+                ]
+            )
+
+            x_test = (
+                all_transformer_embeddings[
+                    test_indices
+                ]
+            )
+
+            # Используем тот же классификатор,
+            # что и для frozen fastText:
+            # StandardScaler + LogisticRegression
+            search = (
+                tune_fasttext_classifier(
+                    x_train=x_train,
+                    y_train=train[
+                        "label"
+                    ],
+                    seed=seed,
+                )
+            )
+
+            y_pred = search.predict(
+                x_test
+            )
+
+            result = {
+                "model": (
+                    search.best_estimator_
+                ),
+
+                "search": search,
+
+                "predictions": (
+                    y_pred
+                ),
+
+                "metrics": (
+                    calculate_metrics(
+                        test[
+                            "label"
+                        ],
+                        y_pred,
+                    )
+                ),
+
+                "best_params": (
+                    search.best_params_
+                ),
+
+                "best_inner_score": float(
+                    search.best_score_
+                ),
+
+                "extra_config": {
+                    "representation": (
+                        f"frozen_{args.model}_"
+                        "mean_pooling"
+                    ),
+
+                    "representation_fit_scope": (
+                        "pretrained_encoder_frozen"
+                    ),
+
+                    "transformer_input_column": (
+                        "input_clean"
+                    ),
+
+                    "transformer_model_id": (
+                        transformer_model_id
+                    ),
+
+                    "transformer_training_on_eutirads": (
+                        False
+                    ),
+
+                    "transformer_finetuning_on_eutirads": (
+                        False
+                    ),
+
+                    "embedding_dimension": int(
+                        all_transformer_embeddings
+                        .shape[1]
+                    ),
+
+                    "n_train_input_clean_tokens": int(
+                        count_tokens(
+                            train[
+                                "input_clean"
+                            ]
+                        )
+                    ),
+
+                    "n_test_input_clean_tokens": int(
+                        count_tokens(
+                            test[
+                                "input_clean"
+                            ]
+                        )
+                    ),
+
+                    **(
+                        transformer_metadata
                         or {}
                     ),
                 },
