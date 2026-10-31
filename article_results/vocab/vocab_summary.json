@@ -1,0 +1,23 @@
+{
+  "source_vocab_size": 4905,
+  "target_vocab_size": 1676,
+  "shared_vocab_size": 320,
+  "source_only_vocab_size": 4585,
+  "target_only_vocab_size": 1356,
+  "jaccard_vocab": 0.05111004631847948,
+  "target_type_coverage_by_source": 0.1909307875894988,
+  "target_type_oov_rate": 0.8090692124105012,
+  "target_token_oov_rate": 0.5236373030224748,
+  "target_token_coverage_by_source": 0.4763626969775252,
+  "model_vocab_size": 2512,
+  "model_target_shared_vocab_size": 260,
+  "model_target_type_coverage": 0.15513126491646778,
+  "model_target_type_oov_rate": 0.8448687350835322,
+  "model_target_token_oov_rate": 0.5651941789373978,
+  "source_n_texts": 23683,
+  "target_n_texts": 3086,
+  "source_n_tokens": 747434,
+  "target_n_tokens": 58065,
+  "source_avg_tokens_per_text": 31.55993750791707,
+  "target_avg_tokens_per_text": 18.815618924173688
+}

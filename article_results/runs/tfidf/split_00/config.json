@@ -1,0 +1,23 @@
+{
+  "model": "tfidf",
+  "split_id": 0,
+  "seed": 42,
+  "n_train_texts": 2468,
+  "n_test_texts": 618,
+  "n_train_tokens": 46542,
+  "n_test_tokens": 11523,
+  "epochs": null,
+  "batch_size": null,
+  "best_inner_macro_f1_2_5": 0.7229210589504719,
+  "best_params": {
+    "classifier__C": 10.0,
+    "classifier__class_weight": "balanced",
+    "tfidf__min_df": 1,
+    "tfidf__ngram_range": [
+      1,
+      2
+    ],
+    "tfidf__sublinear_tf": true
+  },
+  "sklearn_version": "1.9.0"
+}

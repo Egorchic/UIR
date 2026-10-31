@@ -1,0 +1,20 @@
+{
+  "experiment": "EU-TIRADS fastText -> EU-TIRADS classifier",
+  "fasttext_source": "EU-TIRADS train only",
+  "fasttext_model": "skipgram",
+  "dim": 200,
+  "minn": 2,
+  "maxn": 5,
+  "n_train": 2468,
+  "n_test": 618,
+  "accuracy": 0.6585760517799353,
+  "balanced_accuracy": 0.3862487502473469,
+  "macro_precision": 0.47572232104225753,
+  "macro_recall": 0.3862487502473469,
+  "macro_f1": 0.4123812840729305,
+  "macro_f1_classes_2_5": 0.5157197788561878,
+  "weighted_f1": 0.6353769290257456,
+  "fasttext_train_time_sec": 0.9411978721618652,
+  "embedding_time_sec": 1.4098176956176758,
+  "lr_train_time_sec": 1.7408626079559326
+}

@@ -1,0 +1,23 @@
+{
+  "experiment": "Bethesda fastText -> EU-TIRADS classifier",
+  "dataset": "usidatanew_cleaned.xlsx",
+  "sheet": "clean_strict",
+  "fasttext_model": "models/best_model/ft_skipgram_dim200_minn2_maxn5.bin",
+  "embedding_dimension": 200,
+  "random_state": 42,
+  "C": 1.0,
+  "class_weight": "none",
+  "max_iter": 3000,
+  "n_samples": 3086,
+  "n_train": 2468,
+  "n_test": 618,
+  "embedding_time_sec": 0.3762,
+  "train_time_sec": 0.2352,
+  "predict_time_sec": 0.002,
+  "accuracy": 0.7314,
+  "balanced_accuracy": 0.5208,
+  "macro_precision": 0.5343,
+  "macro_recall": 0.5208,
+  "macro_f1": 0.5271,
+  "weighted_f1": 0.7283
+}

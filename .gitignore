@@ -11,6 +11,8 @@ __pycache__/
 *.csv
 *.npy
 *.npz
+*.bin
+*.joblib
 
 # OS junk
 .DS_Store
@@ -24,3 +26,6 @@ models/*
 Dockerfile
 requirements.txt
 .dockerignore
+makemd.py
+23423.py
+

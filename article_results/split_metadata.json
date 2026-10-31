@@ -1,0 +1,20 @@
+{
+  "n_objects": 3086,
+  "n_splits": 10,
+  "first_seed": 42,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "test_size": 0.2,
+  "dataset_sha256": "4e8447e6d51a6ac2075dc1d76b77510253b636eaf07060c739d081e6f5f3d72d",
+  "sklearn_version": "1.9.0"
+}

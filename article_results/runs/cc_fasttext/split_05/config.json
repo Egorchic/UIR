@@ -1,0 +1,24 @@
+{
+  "model": "cc_fasttext",
+  "split_id": 5,
+  "seed": 47,
+  "n_train_texts": 2468,
+  "n_test_texts": 618,
+  "n_train_tokens": 46179,
+  "n_test_tokens": 11886,
+  "epochs": null,
+  "batch_size": null,
+  "best_inner_macro_f1_2_5": 0.6598577228953107,
+  "best_params": {
+    "classifier__C": 0.1,
+    "classifier__class_weight": null
+  },
+  "sklearn_version": "1.9.0",
+  "representation": "frozen_cc_ru_300_fasttext",
+  "fasttext_model_path": "C:\\Users\\egora\\PycharmProjects\\UIR\\models\\pretrained\\cc.ru.300.bin",
+  "fasttext_model_file": "cc.ru.300.bin",
+  "fasttext_training_on_eutirads": false,
+  "embedding_dimension": 300,
+  "fasttext_dimension": 300,
+  "fasttext_vocab_size": 2000000
+}

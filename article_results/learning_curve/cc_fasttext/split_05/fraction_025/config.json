@@ -1,0 +1,32 @@
+{
+  "model": "cc_fasttext",
+  "split_id": 5,
+  "seed": 47,
+  "learning_curve_fraction": 0.25,
+  "n_train_texts": 620,
+  "n_test_texts": 618,
+  "train_class_counts": {
+    "1": 2,
+    "2": 154,
+    "3": 344,
+    "4": 87,
+    "5": 33
+  },
+  "class_1_learning_curve_policy": "all_outer_train_class_1_objects_kept",
+  "primary_learning_curve_classes": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "best_inner_macro_f1_2_5": 0.6682180265116925,
+  "best_params": {
+    "classifier__C": 1.0,
+    "classifier__class_weight": "balanced"
+  },
+  "reused_from_benchmark": false,
+  "representation": "frozen_cc_ru_300_fasttext",
+  "fasttext_model_path": "C:\\Users\\egora\\PycharmProjects\\UIR\\models\\pretrained\\cc.ru.300.bin",
+  "fasttext_dimension": 300,
+  "fasttext_vocab_size": 2000000
+}

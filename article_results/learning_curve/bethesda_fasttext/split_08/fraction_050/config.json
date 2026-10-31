@@ -1,0 +1,32 @@
+{
+  "model": "bethesda_fasttext",
+  "split_id": 8,
+  "seed": 50,
+  "learning_curve_fraction": 0.5,
+  "n_train_texts": 1236,
+  "n_test_texts": 618,
+  "train_class_counts": {
+    "1": 2,
+    "2": 308,
+    "3": 688,
+    "4": 173,
+    "5": 65
+  },
+  "class_1_learning_curve_policy": "all_outer_train_class_1_objects_kept",
+  "primary_learning_curve_classes": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "best_inner_macro_f1_2_5": 0.6046197924441661,
+  "best_params": {
+    "classifier__C": 0.1,
+    "classifier__class_weight": "balanced"
+  },
+  "reused_from_benchmark": false,
+  "representation": "frozen_bethesda_fasttext",
+  "fasttext_model_path": "C:\\Users\\egora\\PycharmProjects\\UIR\\models\\best_model\\ft_skipgram_dim200_minn2_maxn5.bin",
+  "fasttext_dimension": 200,
+  "fasttext_vocab_size": 2512
+}

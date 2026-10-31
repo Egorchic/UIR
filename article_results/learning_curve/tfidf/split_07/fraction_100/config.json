@@ -1,0 +1,26 @@
+{
+  "model": "tfidf",
+  "split_id": 7,
+  "seed": 49,
+  "n_train_texts": 2468,
+  "n_test_texts": 618,
+  "n_train_tokens": 46440,
+  "n_test_tokens": 11625,
+  "epochs": null,
+  "batch_size": null,
+  "best_inner_macro_f1_2_5": 0.7021253092253477,
+  "best_params": {
+    "classifier__C": 10.0,
+    "classifier__class_weight": "balanced",
+    "tfidf__min_df": 2,
+    "tfidf__ngram_range": [
+      1,
+      2
+    ],
+    "tfidf__sublinear_tf": false
+  },
+  "sklearn_version": "1.9.0",
+  "learning_curve_fraction": 1.0,
+  "reused_from_benchmark": true,
+  "benchmark_source": "C:\\Users\\egora\\PycharmProjects\\UIR\\article_results\\runs\\tfidf\\split_07"
+}
