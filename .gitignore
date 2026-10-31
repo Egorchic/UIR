@@ -8,7 +8,6 @@ __pycache__/
 
 # data / artifacts
 *.xlsx
-*.csv
 *.npy
 *.npz
 *.bin
