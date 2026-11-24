@@ -1,0 +1,5 @@
+﻿model,display_name,split_id,n_objects,embedding_dim,cosine_silhouette,macro_f1_2_5
+bethesda_fasttext,Bethesda fastText,0,617,200,-0.022623803466558456,0.6589241402469735
+native_fasttext,native fastText,0,617,200,-0.08639209717512131,0.5393672631055395
+rubert,RuBERT,0,617,768,-0.045726459473371506,0.5827778761323065
+rubiobert,RuBioBERT,0,617,768,-0.04569568112492561,0.6378246797503833
